@@ -36,7 +36,8 @@ struct next_descriptor ut_next_descriptor = {
 unsigned int ut_os_version_index;
 
 void __attribute__ ((noreturn)) ut_calc_reboot(void) {
-	*(volatile unsigned*)0x900A0008 = 2; //CPU reset
+	*(volatile unsigned*)0x900A0008 = 2; // CPU reset (does not work on CX II)
+	asm ("bkpt"); // BKPT will reset if CPU reset fails
 	__builtin_unreachable();
 }
 
